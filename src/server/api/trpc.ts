@@ -1,10 +1,13 @@
 import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
-import { db } from "~/server/db";
+import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { getDb } from "~/server/db";
 import { auth } from "~/server/auth";
 
 export const createTRPCContext = async (opts: { headers: Headers }) => {
+  const { env } = await getCloudflareContext<Env>();
+  const db = getDb(env.DB);
   const session = await auth();
 
   return {

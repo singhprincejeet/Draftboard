@@ -23,7 +23,7 @@ export const draftRouter = createTRPCRouter({
             title: input.title,
             content: input.content ?? undefined,
             liveUrl: input.liveUrl,
-            projectIds: input.projectIds,
+            projectIds: JSON.stringify(input.projectIds),
           },
         });
         return draft;
@@ -34,7 +34,7 @@ export const draftRouter = createTRPCRouter({
             title: input.title,
             content: input.content ?? undefined,
             liveUrl: input.liveUrl,
-            projectIds: input.projectIds,
+            projectIds: JSON.stringify(input.projectIds),
             authorId: ctx.session.user.id,
           },
         });
