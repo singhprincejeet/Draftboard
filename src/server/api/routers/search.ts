@@ -11,8 +11,8 @@ export const searchRouter = createTRPCRouter({
       const usersPromise = ctx.db.user.findMany({
         where: {
           OR: [
-            { displayName: { contains: query, mode: "insensitive" } },
-            { email: { contains: query, mode: "insensitive" } },
+            { displayName: { contains: query } },
+            { email: { contains: query } },
           ],
         },
         select: {
@@ -29,7 +29,7 @@ export const searchRouter = createTRPCRouter({
       const postsPromise = ctx.db.post.findMany({
         where: {
           OR: [
-            { title: { contains: query, mode: "insensitive" } },
+            { title: { contains: query } },
           ],
         },
         select: {
@@ -60,7 +60,7 @@ export const searchRouter = createTRPCRouter({
       // Search projects by name
       const projectsPromise = ctx.db.project.findMany({
         where: {
-          name: { contains: query, mode: "insensitive" },
+          name: { contains: query },
         },
         select: {
           id: true,

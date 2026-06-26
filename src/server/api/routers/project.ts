@@ -114,7 +114,7 @@ export const projectRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const projects = await ctx.db.project.findMany({
         where: input.query
-          ? { name: { contains: input.query, mode: "insensitive" } }
+          ? { name: { contains: input.query } }
           : undefined,
         select: {
           id: true,
