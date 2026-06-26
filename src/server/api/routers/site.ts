@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { randomBytes } from "crypto";
+import { PrismaClient } from "@prisma/client";
 import {
   createTRPCRouter,
   publicProcedure,
@@ -12,7 +13,7 @@ function generateInviteToken(): string {
 }
 
 // Helper to get or create site settings
-async function getOrCreateSettings(db: typeof import("~/server/db").db) {
+async function getOrCreateSettings(db: PrismaClient) {
   let settings = await db.siteSettings.findUnique({
     where: { id: "default" },
   });
