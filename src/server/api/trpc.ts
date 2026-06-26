@@ -6,7 +6,7 @@ import { getDb } from "~/server/db";
 import { auth } from "~/server/auth";
 
 export const createTRPCContext = async (opts: { headers: Headers }) => {
-  const { env } = await getCloudflareContext<Env>();
+  const { env } = await getCloudflareContext<Record<string, unknown>, Env>();
   const db = getDb(env.DB);
   const session = await auth();
 

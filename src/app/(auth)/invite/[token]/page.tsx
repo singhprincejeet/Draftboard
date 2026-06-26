@@ -33,7 +33,7 @@ export default async function InvitePage({ params }: PageProps) {
 
   const { token } = await params;
 
-  const { env } = await getCloudflareContext<Env>();
+  const { env } = await getCloudflareContext<Record<string, unknown>, Env>();
   const db = getDb(env.DB);
 
   // Validate the invite token
