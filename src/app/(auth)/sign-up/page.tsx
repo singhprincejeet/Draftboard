@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
-import { db } from "~/server/db";
+import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { getDb } from "~/server/db";
 import { isSSO } from "~/lib/auth-provider";
 import { SignUpForm } from "./sign-up-form";
 
@@ -9,6 +10,9 @@ export default async function SignUpPage() {
   if (isSSO()) {
     redirect("/sign-in");
   }
+
+  const { env } = await getCloudflareContext<Env>();
+  const db = getDb(env.DB);
 
   // Check if any users exist
   const userCount = await db.user.count();

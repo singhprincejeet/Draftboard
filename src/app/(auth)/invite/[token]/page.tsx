@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { db } from "~/server/db";
+import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { getDb } from "~/server/db";
 import { isSSO } from "~/lib/auth-provider";
 import { InviteProcessor } from "./invite-processor";
 
@@ -31,6 +32,9 @@ export default async function InvitePage({ params }: PageProps) {
   }
 
   const { token } = await params;
+
+  const { env } = await getCloudflareContext<Env>();
+  const db = getDb(env.DB);
 
   // Validate the invite token
   const settings = await db.siteSettings.findFirst({
