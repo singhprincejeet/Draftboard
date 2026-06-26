@@ -4,4 +4,5 @@
 
 interface Env {
   DB: D1Database;
+  [key: string]: unknown;
 }
