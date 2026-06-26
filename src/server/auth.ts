@@ -42,7 +42,7 @@ function getProviders() {
 
         const { email, password } = parsed.data;
 
-        const { env } = await getCloudflareContext<Record<string, unknown>, Env>();
+        const { env } = await getCloudflareContext();
         const db = getDb(env.DB);
 
         const user = await db.user.findUnique({
@@ -107,7 +107,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           }
         }
 
-        const { env } = await getCloudflareContext<Record<string, unknown>, Env>();
+        const { env } = await getCloudflareContext();
         const db = getDb(env.DB);
 
         // Find or create the user in our database
@@ -141,7 +141,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
 
     async jwt({ token, user, account, trigger }) {
-      const { env } = await getCloudflareContext<Record<string, unknown>, Env>();
+      const { env } = await getCloudflareContext();
       const db = getDb(env.DB);
 
       if (user) {

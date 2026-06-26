@@ -11,7 +11,7 @@ export default async function SignUpPage() {
     redirect("/sign-in");
   }
 
-  const { env } = await getCloudflareContext<Record<string, unknown>, Env>();
+  const { env } = await getCloudflareContext();
   const db = getDb(env.DB);
 
   // Check if any users exist

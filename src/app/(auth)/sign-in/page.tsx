@@ -7,7 +7,7 @@ import { SSOSignIn } from "./sso-sign-in";
 
 export default async function SignInPage() {
   if (!isSSO()) {
-    const { env } = await getCloudflareContext<Record<string, unknown>, Env>();
+    const { env } = await getCloudflareContext();
     const db = getDb(env.DB);
     const userCount = await db.user.count();
     if (userCount === 0) {

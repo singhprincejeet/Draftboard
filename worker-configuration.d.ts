@@ -2,7 +2,6 @@
 // Update this file when bindings change in your Webflow Cloud project.
 // Run `wrangler types` to regenerate from wrangler.json if available.
 
-interface Env {
+interface CloudflareEnv {
   DB: D1Database;
-  [key: string]: unknown;
 }
