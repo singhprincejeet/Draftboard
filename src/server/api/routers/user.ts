@@ -165,8 +165,8 @@ export const userRouter = createTRPCRouter({
           ? {
               deactivated: false,
               OR: [
-                { displayName: { contains: input.query, mode: "insensitive" } },
-                { email: { contains: input.query, mode: "insensitive" } },
+                { displayName: { contains: input.query } },
+                { email: { contains: input.query } },
               ],
             }
           : {

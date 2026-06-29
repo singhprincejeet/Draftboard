@@ -2,7 +2,8 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { compare } from "bcryptjs";
 import { z } from "zod";
-import { db } from "~/server/db";
+import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { getDb } from "~/server/db";
 import { authConfig } from "./auth.config";
 import { getAuthMode } from "~/lib/auth-provider";
 
@@ -40,6 +41,9 @@ function getProviders() {
         }
 
         const { email, password } = parsed.data;
+
+        const { env } = await getCloudflareContext();
+        const db = getDb(env.DB);
 
         const user = await db.user.findUnique({
           where: { email },
@@ -103,6 +107,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           }
         }
 
+        const { env } = await getCloudflareContext();
+        const db = getDb(env.DB);
+
         // Find or create the user in our database
         let dbUser = await db.user.findUnique({ where: { email } });
 
@@ -134,6 +141,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
 
     async jwt({ token, user, account, trigger }) {
+      const { env } = await getCloudflareContext();
+      const db = getDb(env.DB);
+
       if (user) {
         if (account?.provider === "okta" || account?.provider === "google") {
           // OAuth sign-in: look up our DB user by email to get the internal ID
