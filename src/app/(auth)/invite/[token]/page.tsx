@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
+
+export const dynamic = "force-dynamic";
 import { getDb } from "~/server/db";
 import { isSSO } from "~/lib/auth-provider";
 import { InviteProcessor } from "./invite-processor";

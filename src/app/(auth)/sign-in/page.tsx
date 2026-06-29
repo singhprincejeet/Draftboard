@@ -1,6 +1,8 @@
 import { redirect } from "next/navigation";
 import { getAuthMode, isSSO } from "~/lib/auth-provider";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
+
+export const dynamic = "force-dynamic";
 import { getDb } from "~/server/db";
 import { CredentialsSignIn } from "./credentials-sign-in";
 import { SSOSignIn } from "./sso-sign-in";

@@ -1,6 +1,8 @@
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
+
+export const dynamic = "force-dynamic";
 import { getDb } from "~/server/db";
 import { isSSO } from "~/lib/auth-provider";
 import { SignUpForm } from "./sign-up-form";
